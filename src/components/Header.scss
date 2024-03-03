@@ -1,0 +1,49 @@
+.header {
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+
+  .site-logo {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .site-title {
+    margin-left: 1rem;
+    font-weight: bold;
+    font-size: 1.9em;
+  }
+
+  .header-right {
+    margin-left: auto;
+  }
+
+  .github-button {
+    width: 9rem;
+    height: 2.5rem;
+    font-size: 1.05rem;
+    font-weight: bold;
+    background-color: #f3f4f6;
+    border-radius: 0.6rem;
+    user-select: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #e5e7eb;
+    }
+
+    .text {
+      margin-left: 0.5rem;
+      letter-spacing: 0.03rem;
+    }
+
+    .icon {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}

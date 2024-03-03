@@ -1,0 +1,63 @@
+.configurator {
+  max-width: 54rem;
+  width: 100%;
+  margin: 2rem auto 0;
+
+  .tab-list {
+    padding-left: 1rem;
+
+    display: flex;
+    align-items: center;
+
+    .label {
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem 0.5rem 0 0;
+      font-weight: bold;
+      background-color: #e5e7eb;
+      cursor: pointer;
+      user-select: none;
+      color: #33415566;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+
+      &.checked {
+        background-color: #f9fafb;
+      }
+
+      &:hover,
+      &.checked {
+        color: #334155;
+      }
+    }
+  }
+
+  .tab-panel {
+    min-height: 18rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #f9fafb;
+
+    .input-item-label {
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .widget-grid {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+      align-items: center;
+      justify-items: center;
+    }
+
+    > *:not(:last-child) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

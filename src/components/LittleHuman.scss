@@ -1,0 +1,13 @@
+.little-human {
+  height: 280px;
+  width: 280px;
+  background-color: #f3f4f6;
+  box-shadow: 2px 4px 6px -4px #4b5563;
+
+  display: flex;
+  justify-content: center;
+
+  .human-preload {
+    height: 100%;
+  }
+}

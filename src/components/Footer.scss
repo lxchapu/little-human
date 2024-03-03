@@ -1,0 +1,28 @@
+.footer {
+  height: 4rem;
+  padding: 0.8rem 0;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #33415566;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .divider {
+    padding: 0 1rem;
+  }
+
+  .link,
+  .locale {
+    transition: color 0.2s;
+
+    &:hover {
+      color: #334155;
+    }
+  }
+
+  .locale {
+    cursor: pointer;
+  }
+}

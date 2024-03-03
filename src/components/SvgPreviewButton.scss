@@ -1,0 +1,23 @@
+.svg-preview-button {
+  position: relative;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  background-color: white;
+
+  &:not(.selected):hover {
+    background-color: #f3f4f6;
+    cursor: pointer;
+  }
+
+  .border {
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  &.selected .border {
+    border-width: 2px;
+    border-color: #374151;
+  }
+}
