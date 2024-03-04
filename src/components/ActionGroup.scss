@@ -20,8 +20,13 @@
     display: flex;
     align-items: center;
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: #e5e7eb;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
     }
 
     .text {

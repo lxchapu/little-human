@@ -1,18 +1,32 @@
-import type { FC } from "react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import html2canvas from "html2canvas";
 
-import "./LittleHuman.scss";
+import type { HumanOption, LittleHumanRef } from "../types";
 import { widgetData } from "../utils/dynamic-data";
 import { WIDGET_POSITION, WIDGET_LAYER } from "../utils/constant";
-import type { HumanOption } from "../types";
 import { WidgetType } from "../utils/enums";
 import { updateSvgFillColor } from "../utils";
 
-const LittleHuman: FC<{
-  humanOption: HumanOption;
-  flipped: boolean;
-}> = ({ humanOption, flipped }) => {
-  const myRef = useRef<HTMLDivElement>(null);
+import "./LittleHuman.scss";
+
+const LittleHuman = forwardRef<
+  LittleHumanRef,
+  {
+    humanOption: HumanOption;
+    flipped: boolean;
+  }
+>(({ humanOption, flipped }, ref) => {
+  const realRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    getDataURL: async () => {
+      if (!realRef.current) return "";
+      const canvas = await html2canvas(realRef.current, {
+        backgroundColor: null,
+      });
+      return canvas.toDataURL();
+    },
+  }));
 
   useEffect(() => {
     const sortList = Object.entries(WIDGET_LAYER).sort(
@@ -48,7 +62,7 @@ const LittleHuman: FC<{
         });
       });
 
-      myRef.current!.innerHTML = `
+      realRef.current!.innerHTML = `
       <svg
         width="100%"
         height="100%"
@@ -83,7 +97,7 @@ const LittleHuman: FC<{
           color: humanOption.widgets.body.color!,
         },
       ];
-      updateSvgFillColor(myRef.current!, colorList);
+      updateSvgFillColor(realRef.current!, colorList);
     }
     updateHumanSvg();
   }, [humanOption]);
@@ -92,7 +106,7 @@ const LittleHuman: FC<{
     <div className="little-human">
       <div
         className="human-preload"
-        ref={myRef}
+        ref={realRef}
         style={
           flipped
             ? {
@@ -103,6 +117,6 @@ const LittleHuman: FC<{
       ></div>
     </div>
   );
-};
+});
 
 export default LittleHuman;

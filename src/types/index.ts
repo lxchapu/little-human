@@ -15,3 +15,7 @@ export interface HumanOption {
   skinColor: string;
   strokeColor: string;
 }
+
+export interface LittleHumanRef {
+  getDataURL: () => Promise<string>;
+}

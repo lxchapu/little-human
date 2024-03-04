@@ -9,7 +9,8 @@ import { ActionType } from "../utils/enums";
 
 const ActionGroup: FC<{
   action: (actionType: ActionType) => void;
-}> = ({ action }) => {
+  downloading: boolean;
+}> = ({ action, downloading }) => {
   return (
     <div className="action-group">
       <button className="action-button" type="button">
@@ -28,9 +29,14 @@ const ActionGroup: FC<{
         <img className="icon" src={iconFlip} alt="水平翻转" />
         <span className="text">水平翻转</span>
       </button>
-      <button className="action-button" type="button">
+      <button
+        className="action-button"
+        type="button"
+        disabled={downloading}
+        onClick={() => action(ActionType.Download)}
+      >
         <img className="icon" src={iconDownload} alt="下载" />
-        <span className="text">下载</span>
+        <span className="text">{downloading ? "请等待" : "下载"}</span>
       </button>
     </div>
   );
