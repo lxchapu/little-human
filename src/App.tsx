@@ -5,6 +5,7 @@ import type { LittleHumanRef, History } from "./types";
 import { ActionType } from "./utils/enums";
 import { DOWNLOAD_DELAY } from "./utils/constant";
 import { name as appName } from "../package.json";
+import { getRandomHumanOption } from "./utils";
 
 import "./App.scss";
 
@@ -22,27 +23,7 @@ function App() {
   const littleHumanRef = useRef<LittleHumanRef>(null);
   const [history, updateHistory] = useImmer<History>({
     past: [],
-    present: {
-      widgets: {
-        head: {
-          shapeIndex: 0,
-          color: "#000000",
-        },
-        body: {
-          shapeIndex: 0,
-          color: "#ffffff",
-        },
-        bottom: {
-          shapeIndex: 0,
-          color: "#000000",
-        },
-        item: {
-          shapeIndex: 0,
-        },
-      },
-      skinColor: "#ffffff",
-      strokeColor: "#000000",
-    },
+    present: getRandomHumanOption(),
     future: [],
   });
 
@@ -90,6 +71,16 @@ function App() {
     }, DOWNLOAD_DELAY);
   }
 
+  function generateRandomHuman() {
+    updateHistory((draft) => {
+      draft.past.push(history.present);
+      draft.future = [];
+      draft.present = getRandomHumanOption();
+    });
+  }
+
+  function generateMultipleHumans() {}
+
   return (
     <main className="main">
       <Container>
@@ -108,7 +99,10 @@ function App() {
               canUndo={history.past.length > 0}
               canRedo={history.future.length > 0}
             />
-            <GenerateGroup />
+            <GenerateGroup
+              clickRandom={generateRandomHuman}
+              clickMultiple={generateMultipleHumans}
+            />
             <Configurator
               humanOption={history.present}
               onChange={updateHistory}

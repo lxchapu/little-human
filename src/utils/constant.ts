@@ -59,4 +59,30 @@ const WIDGET_SIZE: Readonly<{
 
 const DOWNLOAD_DELAY = 400;
 
-export { WIDGET_POSITION, WIDGET_LAYER, WIDGET_SIZE, DOWNLOAD_DELAY };
+const SETTINGS = {
+  skinColors: [
+    "#FFFFFF",
+    "#F8D9CE",
+    "#F9C9B6",
+    "#DEB3A3",
+    "#C89583",
+    "#9C6458",
+  ],
+  commonColors: [
+    "#000000",
+    "#6BD9E9",
+    "#FC909F",
+    "#F4D150",
+    "#E0DDFF",
+    "#D2EFF3",
+    "#FFEDEF",
+    "#FFEBA4",
+    "#506AF4",
+    "#F48150",
+    "#48A99A",
+    "#C09FFF",
+    "#FD6F5D",
+  ],
+};
+
+export { WIDGET_POSITION, WIDGET_LAYER, WIDGET_SIZE, DOWNLOAD_DELAY, SETTINGS };
