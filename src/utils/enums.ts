@@ -13,3 +13,10 @@ export const enum Locale {
   ZH = "zh",
   EN = "en",
 }
+
+export const enum ActionType {
+  Undo = "undo",
+  Redo = "redo",
+  Flip = "flip",
+  Download = "download",
+}

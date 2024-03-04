@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useImmer } from "use-immer";
 
 import "./App.scss";
@@ -9,6 +10,7 @@ import ActionGroup from "./components/ActionGroup";
 import GenerateGroup from "./components/GenerateGroup";
 import Configurator from "./components/Configurator";
 import type { HumanOption } from "./types";
+import { ActionType } from "./utils/enums";
 
 function App() {
   const [humanOption, updateHumanOption] = useImmer<HumanOption>({
@@ -32,6 +34,15 @@ function App() {
     skinColor: "#ffffff",
     strokeColor: "#000000",
   });
+  const [flipped, setFlipped] = useState(false);
+
+  function handleAction(actionType: ActionType) {
+    switch (actionType) {
+      case ActionType.Flip:
+        setFlipped(!flipped);
+        break;
+    }
+  }
 
   return (
     <main className="main">
@@ -40,8 +51,8 @@ function App() {
 
         <div className="content-view">
           <div className="playground">
-            <LittleHuman humanOption={humanOption} />
-            <ActionGroup />
+            <LittleHuman humanOption={humanOption} flipped={flipped} />
+            <ActionGroup action={handleAction} />
             <GenerateGroup />
             <Configurator
               humanOption={humanOption}

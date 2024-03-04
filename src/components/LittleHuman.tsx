@@ -10,7 +10,8 @@ import { updateSvgFillColor } from "../utils";
 
 const LittleHuman: FC<{
   humanOption: HumanOption;
-}> = ({ humanOption }) => {
+  flipped: boolean;
+}> = ({ humanOption, flipped }) => {
   const myRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -89,7 +90,17 @@ const LittleHuman: FC<{
 
   return (
     <div className="little-human">
-      <div className="human-preload" ref={myRef}></div>
+      <div
+        className="human-preload"
+        ref={myRef}
+        style={
+          flipped
+            ? {
+                transform: "rotateY(180deg)",
+              }
+            : undefined
+        }
+      ></div>
     </div>
   );
 };
