@@ -8,29 +8,9 @@ import type { HumanOption } from "../types";
 import { WidgetType } from "../utils/enums";
 import { updateSvgFillColor } from "../utils";
 
-const humanOption: HumanOption = {
-  widgets: {
-    head: {
-      shapeIndex: 0,
-      color: "#000",
-    },
-    body: {
-      shapeIndex: 0,
-      color: "#fff",
-    },
-    bottom: {
-      shapeIndex: 0,
-      color: "#000",
-    },
-    item: {
-      shapeIndex: 1,
-    },
-  },
-  skinColor: "pink",
-  strokeColor: "#000",
-};
-
-const LittleHuman: FC = () => {
+const LittleHuman: FC<{
+  humanOption: HumanOption;
+}> = ({ humanOption }) => {
   const myRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -105,7 +85,7 @@ const LittleHuman: FC = () => {
       updateSvgFillColor(myRef.current!, colorList);
     }
     updateHumanSvg();
-  }, []);
+  }, [humanOption]);
 
   return (
     <div className="little-human">

@@ -1,12 +1,14 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import cn from "classnames";
+import type { Updater } from "use-immer";
 
 import "./Configurator.scss";
 import ColorSelector from "./ColorSelector";
 import SvgPreviewButton from "./SvgPreviewButton";
 import { widgetData } from "../utils/dynamic-data";
 import { WidgetType, TabName } from "../utils/enums";
+import type { HumanOption } from "../types";
 
 async function getWidgets(widgetType: WidgetType) {
   const promises = widgetData[widgetType].map((data) => data());
@@ -20,7 +22,10 @@ interface Section {
   widgetList?: string[];
 }
 
-const Configurator: FC = () => {
+const Configurator: FC<{
+  humanOption: HumanOption;
+  onChange: Updater<HumanOption>;
+}> = ({ humanOption, onChange }) => {
   const [sections, setSections] = useState<Section[]>([]);
   const [currentTab, setCurrentTab] = useState<WidgetType | TabName>(
     WidgetType.Head
@@ -30,8 +35,28 @@ const Configurator: FC = () => {
     (section) => section.tabName === currentTab
   )?.widgetList;
 
-  function switchWidget() {
-    console.log("switchWidget");
+  function switchWidget(newShapeIndex: number) {
+    onChange((draft) => {
+      draft.widgets[currentTab as WidgetType].shapeIndex = newShapeIndex;
+    });
+  }
+
+  function handleStrokeColorChange(newColor: string) {
+    onChange((draft) => {
+      draft.strokeColor = newColor;
+    });
+  }
+
+  function handleSkinColorChange(newColor: string) {
+    onChange((draft) => {
+      draft.skinColor = newColor;
+    });
+  }
+
+  function handleWidgetColorChange(newColor: string) {
+    onChange((draft) => {
+      draft.widgets[currentTab as WidgetType].color = newColor;
+    });
   }
 
   useEffect(() => {
@@ -75,11 +100,17 @@ const Configurator: FC = () => {
         <div className="input-group">
           <div className="input-item">
             <div className="input-item-label">描边</div>
-            <ColorSelector color="#000000" />
+            <ColorSelector
+              color={humanOption.strokeColor}
+              onChange={handleStrokeColorChange}
+            />
           </div>
           <div className="input-item">
             <div className="input-item-label">肤色</div>
-            <ColorSelector color="#000000" />
+            <ColorSelector
+              color={humanOption.skinColor}
+              onChange={handleSkinColorChange}
+            />
           </div>
         </div>
       );
@@ -88,7 +119,10 @@ const Configurator: FC = () => {
     return (
       <div className="input-item">
         <div className="input-item-label">颜色</div>
-        <ColorSelector color="#000000" />
+        <ColorSelector
+          color={humanOption.widgets[currentTab].color!}
+          onChange={handleWidgetColorChange}
+        />
       </div>
     );
   }
@@ -102,11 +136,12 @@ const Configurator: FC = () => {
             <SvgPreviewButton
               key={index}
               svgRaw={widget}
-              skinColor={"#fff"}
-              strokeColor={"#000"}
+              skinColor={humanOption.skinColor}
+              strokeColor={humanOption.strokeColor}
               type={currentTab}
-              isSelected={false}
-              onClick={switchWidget}
+              color={humanOption.widgets[currentTab].color}
+              isSelected={humanOption.widgets[currentTab].shapeIndex === index}
+              onClick={() => switchWidget(index)}
             />
           );
         })}
