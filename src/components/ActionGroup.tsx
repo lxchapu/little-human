@@ -10,14 +10,26 @@ import { ActionType } from "../utils/enums";
 const ActionGroup: FC<{
   action: (actionType: ActionType) => void;
   downloading: boolean;
-}> = ({ action, downloading }) => {
+  canUndo: boolean;
+  canRedo: boolean;
+}> = ({ action, downloading, canRedo, canUndo }) => {
   return (
     <div className="action-group">
-      <button className="action-button" type="button">
+      <button
+        className="action-button"
+        type="button"
+        disabled={!canUndo}
+        onClick={() => action(ActionType.Undo)}
+      >
         <img className="icon" src={iconBack} alt="撤销" />
         <span className="text">撤销</span>
       </button>
-      <button className="action-button" type="button">
+      <button
+        className="action-button"
+        type="button"
+        disabled={!canRedo}
+        onClick={() => action(ActionType.Redo)}
+      >
         <img className="icon" src={iconForward} alt="还原" />
         <span className="text">还原</span>
       </button>

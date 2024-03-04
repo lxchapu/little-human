@@ -26,7 +26,7 @@ const ColorSelector: FC<ColorSelectorProps> = (props) => {
   }
 
   function handlePickerChange(value: string) {
-    props.onChange(value);
+    setHexText(value.replace("#", ""));
   }
 
   useEffect(() => {
@@ -42,6 +42,9 @@ const ColorSelector: FC<ColorSelectorProps> = (props) => {
         value={props.color}
         onChange={(e) => {
           handlePickerChange(e.target.value);
+        }}
+        onBlur={() => {
+          handleInputConfrim();
         }}
       />
       <input

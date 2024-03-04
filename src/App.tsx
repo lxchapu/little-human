@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useImmer } from "use-immer";
 
-import type { LittleHumanRef, HumanOption } from "./types";
+import type { LittleHumanRef, History } from "./types";
 import { ActionType } from "./utils/enums";
 import { DOWNLOAD_DELAY } from "./utils/constant";
 import { name as appName } from "../package.json";
@@ -17,30 +17,34 @@ import GenerateGroup from "./components/GenerateGroup";
 import Configurator from "./components/Configurator";
 
 function App() {
-  const [humanOption, updateHumanOption] = useImmer<HumanOption>({
-    widgets: {
-      head: {
-        shapeIndex: 0,
-        color: "#000000",
-      },
-      body: {
-        shapeIndex: 0,
-        color: "#ffffff",
-      },
-      bottom: {
-        shapeIndex: 0,
-        color: "#000000",
-      },
-      item: {
-        shapeIndex: 0,
-      },
-    },
-    skinColor: "#ffffff",
-    strokeColor: "#000000",
-  });
   const [flipped, setFlipped] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const littleHumanRef = useRef<LittleHumanRef>(null);
+  const [history, updateHistory] = useImmer<History>({
+    past: [],
+    present: {
+      widgets: {
+        head: {
+          shapeIndex: 0,
+          color: "#000000",
+        },
+        body: {
+          shapeIndex: 0,
+          color: "#ffffff",
+        },
+        bottom: {
+          shapeIndex: 0,
+          color: "#000000",
+        },
+        item: {
+          shapeIndex: 0,
+        },
+      },
+      skinColor: "#ffffff",
+      strokeColor: "#000000",
+    },
+    future: [],
+  });
 
   function handleAction(actionType: ActionType) {
     switch (actionType) {
@@ -49,6 +53,25 @@ function App() {
         break;
       case ActionType.Download:
         handleDownload();
+        break;
+      case ActionType.Undo:
+        updateHistory((draft) => {
+          const last = draft.past.pop();
+          if (last) {
+            draft.future.push(draft.present);
+            draft.present = last;
+          }
+        });
+        break;
+      case ActionType.Redo:
+        updateHistory((draft) => {
+          const next = draft.future.pop();
+          if (next) {
+            draft.past.push(draft.present);
+            draft.present = next;
+          }
+        });
+        break;
     }
   }
 
@@ -75,15 +98,20 @@ function App() {
         <div className="content-view">
           <div className="playground">
             <LittleHuman
-              humanOption={humanOption}
+              humanOption={history.present}
               flipped={flipped}
               ref={littleHumanRef}
             />
-            <ActionGroup action={handleAction} downloading={downloading} />
+            <ActionGroup
+              action={handleAction}
+              downloading={downloading}
+              canUndo={history.past.length > 0}
+              canRedo={history.future.length > 0}
+            />
             <GenerateGroup />
             <Configurator
-              humanOption={humanOption}
-              onChange={updateHumanOption}
+              humanOption={history.present}
+              onChange={updateHistory}
             />
           </div>
         </div>

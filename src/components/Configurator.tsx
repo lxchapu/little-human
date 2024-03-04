@@ -8,7 +8,7 @@ import ColorSelector from "./ColorSelector";
 import SvgPreviewButton from "./SvgPreviewButton";
 import { widgetData } from "../utils/dynamic-data";
 import { WidgetType, TabName } from "../utils/enums";
-import type { HumanOption } from "../types";
+import type { History, HumanOption } from "../types";
 
 async function getWidgets(widgetType: WidgetType) {
   const promises = widgetData[widgetType].map((data) => data());
@@ -24,7 +24,7 @@ interface Section {
 
 const Configurator: FC<{
   humanOption: HumanOption;
-  onChange: Updater<HumanOption>;
+  onChange: Updater<History>;
 }> = ({ humanOption, onChange }) => {
   const [sections, setSections] = useState<Section[]>([]);
   const [currentTab, setCurrentTab] = useState<WidgetType | TabName>(
@@ -36,26 +36,47 @@ const Configurator: FC<{
   )?.widgetList;
 
   function switchWidget(newShapeIndex: number) {
+    if (
+      newShapeIndex === humanOption.widgets[currentTab as WidgetType].shapeIndex
+    )
+      return;
+
     onChange((draft) => {
-      draft.widgets[currentTab as WidgetType].shapeIndex = newShapeIndex;
+      draft.past.push(humanOption);
+      draft.future = [];
+      draft.present.widgets[currentTab as WidgetType].shapeIndex =
+        newShapeIndex;
     });
   }
 
   function handleStrokeColorChange(newColor: string) {
+    if (newColor === humanOption.strokeColor) return;
+
     onChange((draft) => {
-      draft.strokeColor = newColor;
+      draft.past.push(humanOption);
+      draft.future = [];
+      draft.present.strokeColor = newColor;
     });
   }
 
   function handleSkinColorChange(newColor: string) {
+    if (newColor === humanOption.skinColor) return;
+
     onChange((draft) => {
-      draft.skinColor = newColor;
+      draft.past.push(humanOption);
+      draft.future = [];
+      draft.present.skinColor = newColor;
     });
   }
 
   function handleWidgetColorChange(newColor: string) {
+    if (newColor === humanOption.widgets[currentTab as WidgetType].color)
+      return;
+
     onChange((draft) => {
-      draft.widgets[currentTab as WidgetType].color = newColor;
+      draft.past.push(humanOption);
+      draft.future = [];
+      draft.present.widgets[currentTab as WidgetType].color = newColor;
     });
   }
 

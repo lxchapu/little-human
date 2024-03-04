@@ -19,3 +19,9 @@ export interface HumanOption {
 export interface LittleHumanRef {
   getDataURL: () => Promise<string>;
 }
+
+export interface History {
+  past: HumanOption[];
+  present: HumanOption;
+  future: HumanOption[];
+}
