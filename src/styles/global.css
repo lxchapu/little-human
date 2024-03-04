@@ -22,3 +22,9 @@ img {
 svg {
   display: block;
 }
+
+button {
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}

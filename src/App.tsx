@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useImmer } from "use-immer";
 
-import type { LittleHumanRef, History } from "./types";
+import type { LittleHumanRef, History, HumanOption } from "./types";
 import { ActionType } from "./utils/enums";
 import { DOWNLOAD_DELAY } from "./utils/constant";
 import { name as appName } from "../package.json";
@@ -16,6 +16,7 @@ import Header from "./components/Header";
 import ActionGroup from "./components/ActionGroup";
 import GenerateGroup from "./components/GenerateGroup";
 import Configurator from "./components/Configurator";
+import BatchDownloadModal from "./components/modal/BatchDownloadModal";
 
 function App() {
   const [flipped, setFlipped] = useState(false);
@@ -26,6 +27,8 @@ function App() {
     present: getRandomHumanOption(),
     future: [],
   });
+  const [humanList, setHumanList] = useState<HumanOption[]>([]);
+  const humanListVisible = humanList.length > 0;
 
   function handleAction(actionType: ActionType) {
     switch (actionType) {
@@ -79,7 +82,27 @@ function App() {
     });
   }
 
-  function generateMultipleHumans() {}
+  async function generateMultipleHumans() {
+    const { default: hash } = await import("object-hash");
+
+    const humanMap = [...Array(30)].reduce<Map<string, HumanOption>>((res) => {
+      let randomHumanOption: HumanOption;
+      let hashKey: string;
+
+      do {
+        randomHumanOption = getRandomHumanOption();
+        hashKey = hash.sha1(randomHumanOption);
+      } while (res.has(hashKey));
+
+      res.set(hashKey, randomHumanOption);
+
+      return res;
+    }, new Map());
+
+    const list = Array.from(humanMap.values());
+
+    setHumanList(list);
+  }
 
   return (
     <main className="main">
@@ -112,6 +135,15 @@ function App() {
 
         <Footer />
       </Container>
+
+      <BatchDownloadModal
+        visible={humanListVisible}
+        humanList={humanList}
+        regenerate={generateMultipleHumans}
+        close={() => {
+          setHumanList([]);
+        }}
+      />
     </main>
   );
 }
