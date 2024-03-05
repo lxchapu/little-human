@@ -13,12 +13,14 @@
     "canvas-confetti": "^1.9.2",
     "classnames": "^2.5.1",
     "html2canvas": "^1.4.1",
+    "i18next": "^23.10.0",
     "immer": "^10.0.3",
     "jszip": "^3.10.1",
     "minireset.css": "^0.0.7",
     "object-hash": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^14.0.5",
     "use-immer": "^0.9.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import "./GenerateGroup.scss";
 import iconRandom from "../assets/icons/random.svg";
@@ -8,6 +9,8 @@ const GenerateGroup: FC<{
   clickRandom: () => void;
   clickMultiple: () => void;
 }> = ({ clickRandom, clickMultiple }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="generate-group">
       <button
@@ -15,16 +18,16 @@ const GenerateGroup: FC<{
         type="button"
         onClick={clickRandom}
       >
-        <img className="icon" src={iconRandom} alt="随机生成" />
-        <span className="text">随机生成</span>
+        <img className="icon" src={iconRandom} alt={t("generate.random")} />
+        <span className="text">{t("generate.random")}</span>
       </button>
       <button
         className="generate-button generate-multiple"
         type="button"
         onClick={clickMultiple}
       >
-        <img className="icon" src={iconMagic} alt="批量生成" />
-        <span className="text">批量生成</span>
+        <img className="icon" src={iconMagic} alt={t("generate.multiple")} />
+        <span className="text">{t("generate.multiple")}</span>
       </button>
     </div>
   );

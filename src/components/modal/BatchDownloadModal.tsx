@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 import cn from "classnames";
+import { useTranslation } from "react-i18next";
 
 import { HumanOption, LittleHumanRef } from "../../types";
 import { name as appName } from "../../../package.json";
@@ -18,6 +19,7 @@ const BatchDownloadModal: FC<{
   const [making, setMaking] = useState(false);
   const [madeCount, setMadeCount] = useState(0);
   const [downloadIndex, setDownloadIndex] = useState(-1);
+  const { t } = useTranslation();
 
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
@@ -86,7 +88,7 @@ const BatchDownloadModal: FC<{
     >
       <div className="batch-download-modal">
         <div className="top-bar">
-          <div>已为您生成一组小人</div>
+          <div>{t("text.generatedTip")}</div>
           <div className="right">
             <button
               className="regenerate-button"
@@ -94,7 +96,7 @@ const BatchDownloadModal: FC<{
               onClick={regenerate}
               disabled={making || downloadIndex >= 0}
             >
-              换一批
+              {t("text.regenerate")}
             </button>
             <button
               className="download-button"
@@ -103,8 +105,8 @@ const BatchDownloadModal: FC<{
               disabled={making || downloadIndex >= 0}
             >
               {making && madeCount > 0
-                ? `正在下载(${madeCount}/${humanList.length})`
-                : "下载全部"}
+                ? `${t("text.downloading")}(${madeCount}/${humanList.length})`
+                : t("text.batchDownload")}
             </button>
           </div>
         </div>
@@ -136,7 +138,7 @@ const BatchDownloadModal: FC<{
                     onClick={() => handleDownload(index)}
                     disabled={downloading}
                   >
-                    {downloading ? "请等待" : "下载图片"}
+                    {downloading ? t("text.waiting") : t("text.singleDownload")}
                   </button>
                 </div>
               );

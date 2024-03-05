@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { useEffect, useState } from "react";
 import cn from "classnames";
 import type { Updater } from "use-immer";
+import { useTranslation } from "react-i18next";
 
 import "./Configurator.scss";
 import ColorSelector from "./ColorSelector";
@@ -19,21 +20,45 @@ async function getWidgets(widgetType: WidgetType) {
 interface Section {
   tabName: WidgetType | TabName;
   tabLabel: string;
-  widgetList?: string[];
 }
 
 const Configurator: FC<{
   humanOption: HumanOption;
   onChange: Updater<History>;
 }> = ({ humanOption, onChange }) => {
-  const [sections, setSections] = useState<Section[]>([]);
   const [currentTab, setCurrentTab] = useState<WidgetType | TabName>(
     WidgetType.Head
   );
+  const { t } = useTranslation();
+  const [widgetList, setWidgetList] = useState<string[]>([]);
 
-  const widgetList = sections.find(
-    (section) => section.tabName === currentTab
-  )?.widgetList;
+  const sections: Section[] = [
+    {
+      tabName: WidgetType.Head,
+      tabLabel: t("tabLabel.head"),
+    },
+    {
+      tabName: WidgetType.Body,
+      tabLabel: t("tabLabel.body"),
+    },
+    {
+      tabName: WidgetType.Bottom,
+      tabLabel: t("tabLabel.bottom"),
+    },
+    {
+      tabName: WidgetType.Item,
+      tabLabel: t("tabLabel.item"),
+    },
+    {
+      tabName: TabName.Other,
+      tabLabel: t("tabLabel.other"),
+    },
+  ];
+
+  useEffect(() => {
+    if (currentTab === TabName.Other) return;
+    getWidgets(currentTab).then((list) => setWidgetList(list));
+  }, [currentTab]);
 
   function switchWidget(newShapeIndex: number) {
     if (
@@ -80,39 +105,6 @@ const Configurator: FC<{
     });
   }
 
-  useEffect(() => {
-    async function updateSections() {
-      const s: Section[] = [
-        {
-          tabName: WidgetType.Head,
-          tabLabel: "头发",
-          widgetList: await getWidgets(WidgetType.Head),
-        },
-        {
-          tabName: WidgetType.Body,
-          tabLabel: "上身",
-          widgetList: await getWidgets(WidgetType.Body),
-        },
-        {
-          tabName: WidgetType.Bottom,
-          tabLabel: "下身",
-          widgetList: await getWidgets(WidgetType.Bottom),
-        },
-        {
-          tabName: WidgetType.Item,
-          tabLabel: "头饰",
-          widgetList: await getWidgets(WidgetType.Item),
-        },
-        {
-          tabName: TabName.Other,
-          tabLabel: "其他",
-        },
-      ];
-      setSections(s);
-    }
-    updateSections();
-  }, []);
-
   function getColorSelector() {
     if (currentTab === WidgetType.Item) return null;
 
@@ -120,14 +112,14 @@ const Configurator: FC<{
       return (
         <div className="input-group">
           <div className="input-item">
-            <div className="input-item-label">描边</div>
+            <div className="input-item-label">{t("text.stroke")}</div>
             <ColorSelector
               color={humanOption.strokeColor}
               onChange={handleStrokeColorChange}
             />
           </div>
           <div className="input-item">
-            <div className="input-item-label">肤色</div>
+            <div className="input-item-label">{t("text.skin")}</div>
             <ColorSelector
               color={humanOption.skinColor}
               onChange={handleSkinColorChange}
@@ -139,7 +131,7 @@ const Configurator: FC<{
 
     return (
       <div className="input-item">
-        <div className="input-item-label">颜色</div>
+        <div className="input-item-label">{t("text.color")}</div>
         <ColorSelector
           color={humanOption.widgets[currentTab].color!}
           onChange={handleWidgetColorChange}

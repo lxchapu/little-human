@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 import "./ActionGroup.scss";
 import iconBack from "../assets/icons/back.svg";
@@ -13,6 +14,8 @@ const ActionGroup: FC<{
   canUndo: boolean;
   canRedo: boolean;
 }> = ({ action, downloading, canRedo, canUndo }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="action-group">
       <button
@@ -21,8 +24,8 @@ const ActionGroup: FC<{
         disabled={!canUndo}
         onClick={() => action(ActionType.Undo)}
       >
-        <img className="icon" src={iconBack} alt="撤销" />
-        <span className="text">撤销</span>
+        <img className="icon" src={iconBack} alt={t("action.undo")} />
+        <span className="text">{t("action.undo")}</span>
       </button>
       <button
         className="action-button"
@@ -30,16 +33,16 @@ const ActionGroup: FC<{
         disabled={!canRedo}
         onClick={() => action(ActionType.Redo)}
       >
-        <img className="icon" src={iconForward} alt="还原" />
-        <span className="text">还原</span>
+        <img className="icon" src={iconForward} alt={t("action.redo")} />
+        <span className="text">{t("action.redo")}</span>
       </button>
       <button
         className="action-button"
         type="button"
         onClick={() => action(ActionType.Flip)}
       >
-        <img className="icon" src={iconFlip} alt="水平翻转" />
-        <span className="text">水平翻转</span>
+        <img className="icon" src={iconFlip} alt={t("action.flip")} />
+        <span className="text">{t("action.flip")}</span>
       </button>
       <button
         className="action-button"
@@ -47,8 +50,10 @@ const ActionGroup: FC<{
         disabled={downloading}
         onClick={() => action(ActionType.Download)}
       >
-        <img className="icon" src={iconDownload} alt="下载" />
-        <span className="text">{downloading ? "请等待" : "下载"}</span>
+        <img className="icon" src={iconDownload} alt={t("action.download")} />
+        <span className="text">
+          {downloading ? t("text.waiting") : t("action.download")}
+        </span>
       </button>
     </div>
   );
