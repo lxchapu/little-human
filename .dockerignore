@@ -1,0 +1,11 @@
+**/node_modules
+**/.DS_Store
+**/.vscode
+**/.git
+build
+dist
+.gitignore
+LICENSE
+README.md
+.dockerignore
+Dockerfile*
