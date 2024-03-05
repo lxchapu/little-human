@@ -43,6 +43,24 @@ pnpm dev
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/lxchapu/little-human/)
 
+## Docker 部署
+
+你也可以使用 Docker 自行部署
+
+```sh
+# 克隆仓库
+git clone git@github.com:lxchapu/little-human.git
+
+# 构建镜像
+cd little-human/
+docker build -t little-human:v1 .
+
+# 启动服务
+docker run -d -t -p 8080:80 --name little-human --restart=always little-human:v1
+```
+
+然后，打开你的浏览器访问地址 `http://serverIP:8080` 即可。
+
 ## 资源
 
 - 设计师：[@ysk_en](https://twitter.com/ysk_en)
