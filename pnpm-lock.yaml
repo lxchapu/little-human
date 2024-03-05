@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  canvas-confetti:
+    specifier: ^1.9.2
+    version: 1.9.2
   classnames:
     specifier: ^2.5.1
     version: 2.5.1
@@ -34,6 +37,9 @@ dependencies:
     version: 0.9.0(immer@10.0.3)(react@18.2.0)
 
 devDependencies:
+  '@types/canvas-confetti':
+    specifier: ^1.6.4
+    version: 1.6.4
   '@types/object-hash':
     specifier: ^3.0.6
     version: 3.0.6
@@ -750,6 +756,10 @@ packages:
       '@babel/types': 7.24.0
     dev: true
 
+  /@types/canvas-confetti@1.6.4:
+    resolution: {integrity: sha512-fNyZ/Fdw/Y92X0vv7B+BD6ysHL4xVU5dJcgzgxLdGbn8O3PezZNIJpml44lKM0nsGur+o/6+NZbZeNTt00U1uA==}
+    dev: true
+
   /@types/estree@1.0.5:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
@@ -1052,6 +1062,10 @@ packages:
   /caniuse-lite@1.0.30001591:
     resolution: {integrity: sha512-PCzRMei/vXjJyL5mJtzNiUCKP59dm8Apqc3PH8gJkMnMXZGox93RbE76jHsmLwmIo6/3nsYIpJtx0O7u5PqFuQ==}
     dev: true
+
+  /canvas-confetti@1.9.2:
+    resolution: {integrity: sha512-6Xi7aHHzKwxZsem4mCKoqP6YwUG3HamaHHAlz1hTNQPCqXhARFpSXnkC9TWlahHY5CG6hSL5XexNjxK8irVErg==}
+    dev: false
 
   /chalk@2.4.2:
     resolution: {integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==}

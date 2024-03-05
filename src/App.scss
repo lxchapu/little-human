@@ -1,9 +1,14 @@
 .main {
-  .playground {
-    padding: 2rem 0;
+  .content-view {
+    position: relative;
+    z-index: 100;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    & > .playground {
+      padding: 2rem 0;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }

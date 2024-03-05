@@ -83,6 +83,18 @@ const SETTINGS = {
     "#C09FFF",
     "#FD6F5D",
   ],
+
+  specialColor: "#CF2323",
+  specialItemShapeIndex: 1,
 };
 
-export { WIDGET_POSITION, WIDGET_LAYER, WIDGET_SIZE, DOWNLOAD_DELAY, SETTINGS };
+const TRIGGER_PROBABILITY = 0.05;
+
+export {
+  WIDGET_POSITION,
+  WIDGET_LAYER,
+  WIDGET_SIZE,
+  DOWNLOAD_DELAY,
+  SETTINGS,
+  TRIGGER_PROBABILITY,
+};

@@ -2,10 +2,14 @@ import { useRef, useState } from "react";
 import { useImmer } from "use-immer";
 
 import type { LittleHumanRef, History, HumanOption } from "./types";
-import { ActionType } from "./utils/enums";
-import { DOWNLOAD_DELAY } from "./utils/constant";
+import { ActionType, WidgetType } from "./utils/enums";
+import {
+  DOWNLOAD_DELAY,
+  SETTINGS,
+  TRIGGER_PROBABILITY,
+} from "./utils/constant";
 import { name as appName } from "../package.json";
-import { getRandomHumanOption } from "./utils";
+import { getRandomHumanOption, showConfetti } from "./utils";
 
 import "./App.scss";
 
@@ -75,10 +79,20 @@ function App() {
   }
 
   function generateRandomHuman() {
+    const randomOption = getRandomHumanOption();
+
+    if (Math.random() <= TRIGGER_PROBABILITY) {
+      randomOption.widgets[WidgetType.Body].color = SETTINGS.specialColor;
+      randomOption.widgets[WidgetType.Bottom].color = SETTINGS.specialColor;
+      randomOption.widgets[WidgetType.Item].shapeIndex =
+        SETTINGS.specialItemShapeIndex;
+      showConfetti();
+    }
+
     updateHistory((draft) => {
       draft.past.push(history.present);
       draft.future = [];
-      draft.present = getRandomHumanOption();
+      draft.present = randomOption;
     });
   }
 
@@ -107,9 +121,9 @@ function App() {
   return (
     <main className="main">
       <Container>
-        <Header />
-
         <div className="content-view">
+          <Header />
+
           <div className="playground">
             <LittleHuman
               humanOption={history.present}
@@ -131,9 +145,20 @@ function App() {
               onChange={updateHistory}
             />
           </div>
+
+          <Footer />
         </div>
 
-        <Footer />
+        <canvas
+          id="confetti"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: "100%",
+            height: "100%",
+          }}
+        ></canvas>
       </Container>
 
       <BatchDownloadModal
