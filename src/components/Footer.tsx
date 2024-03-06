@@ -3,9 +3,10 @@ import { useTranslation } from "react-i18next";
 
 import "./Footer.scss";
 import { Locale } from "../utils/enums";
+import { version } from "../../package.json";
 
 const Footer: FC = () => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   function switchLocale() {
     i18n.changeLanguage(i18n.language === Locale.EN ? Locale.ZH : Locale.EN);
@@ -30,6 +31,10 @@ const Footer: FC = () => {
       <div className="locale" role="button" onClick={switchLocale}>
         {i18n.language === Locale.EN ? "简体中文" : "English"}
       </div>
+
+      <div className="divider">|</div>
+
+      <div>{`${t("text.version")}: ${version}`}</div>
     </footer>
   );
 };

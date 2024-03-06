@@ -23,6 +23,7 @@ export default {
       waiting: "请等待",
       downloading: "正在下载",
       regenerate: "换一批",
+      version: "版本",
     },
     generate: {
       random: "随机生成",

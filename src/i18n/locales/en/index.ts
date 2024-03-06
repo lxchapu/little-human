@@ -23,6 +23,7 @@ export default {
       waiting: "Waiting",
       downloading: "Downloading",
       regenerate: "Regenerate",
+      version: "Version",
     },
     generate: {
       random: "Randomize",
