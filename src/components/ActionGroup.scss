@@ -1,3 +1,5 @@
+@use "../styles/var";
+
 .action-group {
   margin-top: 4rem;
   padding: 0.5rem;
@@ -29,6 +31,12 @@
     .text {
       margin-left: 0.5rem;
       font-weight: bold;
+
+      display: none;
+
+      @media screen and (min-width: var.$screen-sm) {
+        display: block;
+      }
     }
 
     .icon {

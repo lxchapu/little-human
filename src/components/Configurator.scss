@@ -1,3 +1,5 @@
+@use "../styles/var";
+
 .configurator {
   max-width: 54rem;
   width: 100%;
@@ -10,7 +12,7 @@
     align-items: center;
 
     .label {
-      padding: 0.75rem 1rem;
+      padding: 0.75rem;
       border-radius: 0.5rem 0.5rem 0 0;
       font-weight: bold;
       background-color: #e5e7eb;
@@ -19,6 +21,11 @@
       color: #33415566;
       font-size: 0.875rem;
       transition: color 0.2s;
+
+      @media screen and (min-width: var.$screen-sm) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
 
       &.checked {
         background-color: #f9fafb;
