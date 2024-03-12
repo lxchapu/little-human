@@ -17,6 +17,7 @@ const Header: FC = () => {
           role="button"
           target="_blank"
           rel="noopener noreferrer nofollow"
+          data-umami-event="View GitHub"
         >
           <img className="icon" src={iconGithub} alt="Github" />
           <span className="text">Github</span>

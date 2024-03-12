@@ -16,6 +16,7 @@ const GenerateGroup: FC<{
       <button
         className="generate-button generate-randomly"
         type="button"
+        data-umami-event="Generate Randomly Button"
         onClick={clickRandom}
       >
         <img className="icon" src={iconRandom} alt={t("generate.random")} />
@@ -24,6 +25,7 @@ const GenerateGroup: FC<{
       <button
         className="generate-button generate-multiple"
         type="button"
+        data-umami-event="Generate Multiple Button"
         onClick={clickMultiple}
       >
         <img className="icon" src={iconMagic} alt={t("generate.multiple")} />

@@ -21,6 +21,7 @@ const Footer: FC = () => {
           href="http://github.com/lxchapu"
           target="_black"
           rel="nofollow noopener noreferrer"
+          data-umami-event="View Author"
         >
           lxchapu
         </a>
@@ -28,7 +29,12 @@ const Footer: FC = () => {
 
       <div className="divider">|</div>
 
-      <div className="locale" role="button" onClick={switchLocale}>
+      <div
+        className="locale"
+        role="button"
+        data-umami-event="Switch Locale"
+        onClick={switchLocale}
+      >
         {i18n.language === Locale.EN ? "简体中文" : "English"}
       </div>
 

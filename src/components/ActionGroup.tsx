@@ -21,6 +21,7 @@ const ActionGroup: FC<{
       <button
         className="action-button"
         type="button"
+        data-umami-event="Undo Button"
         disabled={!canUndo}
         onClick={() => action(ActionType.Undo)}
       >
@@ -30,6 +31,7 @@ const ActionGroup: FC<{
       <button
         className="action-button"
         type="button"
+        data-umami-event="Redo Button"
         disabled={!canRedo}
         onClick={() => action(ActionType.Redo)}
       >
@@ -39,6 +41,7 @@ const ActionGroup: FC<{
       <button
         className="action-button"
         type="button"
+        data-umami-event="Flip Button"
         onClick={() => action(ActionType.Flip)}
       >
         <img className="icon" src={iconFlip} alt={t("action.flip")} />
@@ -47,6 +50,8 @@ const ActionGroup: FC<{
       <button
         className="action-button"
         type="button"
+        data-umami-event="Download Button"
+        data-umami-event-type="Single"
         disabled={downloading}
         onClick={() => action(ActionType.Download)}
       >

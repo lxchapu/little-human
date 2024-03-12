@@ -93,6 +93,7 @@ const BatchDownloadModal: FC<{
             <button
               className="regenerate-button"
               type="button"
+              data-umami-event="Regenerate Button"
               onClick={regenerate}
               disabled={making || downloadIndex >= 0}
             >
@@ -101,6 +102,8 @@ const BatchDownloadModal: FC<{
             <button
               className="download-button"
               type="button"
+              data-umami-event="Download Button"
+              data-umami-event-type="Batch"
               onClick={makeZip}
               disabled={making || downloadIndex >= 0}
             >
@@ -135,6 +138,8 @@ const BatchDownloadModal: FC<{
                   <button
                     className="single-download-button"
                     type="button"
+                    data-umami-event="Download Button"
+                    data-umami-event-type="Single"
                     onClick={() => handleDownload(index)}
                     disabled={downloading}
                   >
