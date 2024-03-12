@@ -1,13 +1,13 @@
-import { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
-import html2canvas from "html2canvas";
+import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import html2canvas from 'html2canvas';
 
-import type { HumanOption, LittleHumanRef } from "../types";
-import { widgetData } from "../utils/dynamic-data";
-import { WIDGET_POSITION, WIDGET_LAYER } from "../utils/constant";
-import { WidgetType } from "../utils/enums";
-import { updateSvgFillColor } from "../utils";
+import type { HumanOption, LittleHumanRef } from '../types';
+import { widgetData } from '../utils/dynamic-data';
+import { WIDGET_POSITION, WIDGET_LAYER } from '../utils/constant';
+import { WidgetType } from '../utils/enums';
+import { updateSvgFillColor } from '../utils';
 
-import "./LittleHuman.scss";
+import './LittleHuman.scss';
 
 const LittleHuman = forwardRef<
   LittleHumanRef,
@@ -20,7 +20,7 @@ const LittleHuman = forwardRef<
 
   useImperativeHandle(ref, () => ({
     getDataURL: async () => {
-      if (!realRef.current) return "";
+      if (!realRef.current) return '';
       const canvas = await html2canvas(realRef.current, {
         backgroundColor: null,
       });
@@ -29,9 +29,10 @@ const LittleHuman = forwardRef<
   }));
 
   useEffect(() => {
-    const sortList = Object.entries(WIDGET_LAYER).sort(
-      (a, b) => a[1] - b[1]
-    ) as [WidgetType, number][];
+    const sortList = Object.entries(WIDGET_LAYER).sort((a, b) => a[1] - b[1]) as [
+      WidgetType,
+      number,
+    ][];
 
     const list = sortList.map(([type, layer]) => {
       const shapeIndex = humanOption.widgets[type].shapeIndex;
@@ -51,8 +52,8 @@ const LittleHuman = forwardRef<
           let content = svgRaw.default;
 
           content = content
-            .slice(content.indexOf(">", content.indexOf("<svg")) + 1)
-            .replace("</svg>", "");
+            .slice(content.indexOf('>', content.indexOf('<svg')) + 1)
+            .replace('</svg>', '');
 
           return `
           <g transform="translate(${list[index].x}, ${list[index].y})">
@@ -71,29 +72,29 @@ const LittleHuman = forwardRef<
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        ${svgRawList.join("")}
+        ${svgRawList.join('')}
       </svg>
       `;
 
       const colorList = [
         {
-          selector: ".skin",
+          selector: '.skin',
           color: humanOption.skinColor,
         },
         {
-          selector: ".stroke",
+          selector: '.stroke',
           color: humanOption.strokeColor,
         },
         {
-          selector: ".head",
+          selector: '.head',
           color: humanOption.widgets.head.color!,
         },
         {
-          selector: ".bottom",
+          selector: '.bottom',
           color: humanOption.widgets.bottom.color!,
         },
         {
-          selector: ".body",
+          selector: '.body',
           color: humanOption.widgets.body.color!,
         },
       ];
@@ -110,7 +111,7 @@ const LittleHuman = forwardRef<
         style={
           flipped
             ? {
-                transform: "rotateY(180deg)",
+                transform: 'rotateY(180deg)',
               }
             : undefined
         }

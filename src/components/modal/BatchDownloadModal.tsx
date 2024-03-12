@@ -1,13 +1,13 @@
-import type { FC } from "react";
-import { useEffect, useRef, useState } from "react";
-import cn from "classnames";
-import { useTranslation } from "react-i18next";
+import type { FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
 
-import { HumanOption, LittleHumanRef } from "../../types";
-import { name as appName } from "../../../package.json";
+import { HumanOption, LittleHumanRef } from '../../types';
+import { name as appName } from '../../../package.json';
 
-import LittleHuman from "../LittleHuman";
-import "./BatchDownloadModal.scss";
+import LittleHuman from '../LittleHuman';
+import './BatchDownloadModal.scss';
 
 const BatchDownloadModal: FC<{
   visible: boolean;
@@ -22,18 +22,15 @@ const BatchDownloadModal: FC<{
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.body.style.overflow = visible ? "hidden" : "";
+    document.body.style.overflow = visible ? 'hidden' : '';
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [visible]);
 
   useEffect(() => {
-    littleHumansRef.current = littleHumansRef.current.slice(
-      0,
-      humanList.length
-    );
+    littleHumansRef.current = littleHumansRef.current.slice(0, humanList.length);
   }, [humanList]);
 
   async function handleDownload(index: number) {
@@ -43,7 +40,7 @@ const BatchDownloadModal: FC<{
 
     setDownloadIndex(-1);
 
-    const trigger = document.createElement("a");
+    const trigger = document.createElement('a');
     trigger.href = dataURL;
     trigger.download = `${appName}.png`;
     trigger.click();
@@ -54,24 +51,24 @@ const BatchDownloadModal: FC<{
 
     setMaking(true);
 
-    const JSZip = (await import("jszip")).default;
+    const JSZip = (await import('jszip')).default;
     const zip = new JSZip();
 
     for (let i = 0; i < humanList.length; i++) {
       const dataURL = await littleHumansRef.current[i]!.getDataURL();
-      zip.file(`${appName}-${i + 1}.png`, dataURL.split(",")[1], {
+      zip.file(`${appName}-${i + 1}.png`, dataURL.split(',')[1], {
         base64: true,
       });
       setMadeCount((count) => count + 1);
     }
 
-    const content = await zip.generateAsync({ type: "base64" });
+    const content = await zip.generateAsync({ type: 'base64' });
 
     setMaking(false);
     setMadeCount(0);
 
-    const trigger = document.createElement("a");
-    trigger.href = "data:application/zip;base64," + content;
+    const trigger = document.createElement('a');
+    trigger.href = 'data:application/zip;base64,' + content;
     trigger.download = `${appName}.zip`;
     trigger.click();
   }
@@ -88,7 +85,7 @@ const BatchDownloadModal: FC<{
     >
       <div className="batch-download-modal">
         <div className="top-bar">
-          <div>{t("text.generatedTip")}</div>
+          <div>{t('text.generatedTip')}</div>
           <div className="right">
             <button
               className="regenerate-button"
@@ -97,7 +94,7 @@ const BatchDownloadModal: FC<{
               onClick={regenerate}
               disabled={making || downloadIndex >= 0}
             >
-              {t("text.regenerate")}
+              {t('text.regenerate')}
             </button>
             <button
               className="download-button"
@@ -108,8 +105,8 @@ const BatchDownloadModal: FC<{
               disabled={making || downloadIndex >= 0}
             >
               {making && madeCount > 0
-                ? `${t("text.downloading")}(${madeCount}/${humanList.length})`
-                : t("text.batchDownload")}
+                ? `${t('text.downloading')}(${madeCount}/${humanList.length})`
+                : t('text.batchDownload')}
             </button>
           </div>
         </div>
@@ -117,13 +114,12 @@ const BatchDownloadModal: FC<{
         <div className="content">
           <div className="human-grid">
             {humanList.map((opt, index) => {
-              const downloading =
-                downloadIndex === index || (making && index + 1 > madeCount);
+              const downloading = downloadIndex === index || (making && index + 1 > madeCount);
 
               return (
                 <div
                   className={cn([
-                    "human-box",
+                    'human-box',
                     {
                       downloading: downloading,
                     },
@@ -143,7 +139,7 @@ const BatchDownloadModal: FC<{
                     onClick={() => handleDownload(index)}
                     disabled={downloading}
                   >
-                    {downloading ? t("text.waiting") : t("text.singleDownload")}
+                    {downloading ? t('text.waiting') : t('text.singleDownload')}
                   </button>
                 </div>
               );

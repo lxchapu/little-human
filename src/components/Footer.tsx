@@ -1,9 +1,9 @@
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import "./Footer.scss";
-import { Locale } from "../utils/enums";
-import { version } from "../../package.json";
+import './Footer.scss';
+import { Locale } from '../utils/enums';
+import { version } from '../../package.json';
 
 const Footer: FC = () => {
   const { t, i18n } = useTranslation();
@@ -15,7 +15,7 @@ const Footer: FC = () => {
   return (
     <footer className="footer">
       <div>
-        Made by{" "}
+        Made by{' '}
         <a
           className="link"
           href="http://github.com/lxchapu"
@@ -29,18 +29,13 @@ const Footer: FC = () => {
 
       <div className="divider">|</div>
 
-      <div
-        className="locale"
-        role="button"
-        data-umami-event="Switch Locale"
-        onClick={switchLocale}
-      >
-        {i18n.language === Locale.EN ? "简体中文" : "English"}
+      <div className="locale" role="button" data-umami-event="Switch Locale" onClick={switchLocale}>
+        {i18n.language === Locale.EN ? '简体中文' : 'English'}
       </div>
 
       <div className="divider">|</div>
 
-      <div>{`${t("text.version")}: ${version}`}</div>
+      <div>{`${t('text.version')}: ${version}`}</div>
     </footer>
   );
 };

@@ -1,7 +1,7 @@
-import type { FC } from "react";
+import type { FC } from 'react';
 
-import "./Header.scss";
-import iconGithub from "../assets/icons/github.svg";
+import './Header.scss';
+import iconGithub from '../assets/icons/github.svg';
 
 const Header: FC = () => {
   return (

@@ -1,12 +1,12 @@
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import "./ActionGroup.scss";
-import iconBack from "../assets/icons/back.svg";
-import iconDownload from "../assets/icons/download.svg";
-import iconFlip from "../assets/icons/flip.svg";
-import iconForward from "../assets/icons/forward.svg";
-import { ActionType } from "../utils/enums";
+import './ActionGroup.scss';
+import iconBack from '../assets/icons/back.svg';
+import iconDownload from '../assets/icons/download.svg';
+import iconFlip from '../assets/icons/flip.svg';
+import iconForward from '../assets/icons/forward.svg';
+import { ActionType } from '../utils/enums';
 
 const ActionGroup: FC<{
   action: (actionType: ActionType) => void;
@@ -25,8 +25,8 @@ const ActionGroup: FC<{
         disabled={!canUndo}
         onClick={() => action(ActionType.Undo)}
       >
-        <img className="icon" src={iconBack} alt={t("action.undo")} />
-        <span className="text">{t("action.undo")}</span>
+        <img className="icon" src={iconBack} alt={t('action.undo')} />
+        <span className="text">{t('action.undo')}</span>
       </button>
       <button
         className="action-button"
@@ -35,8 +35,8 @@ const ActionGroup: FC<{
         disabled={!canRedo}
         onClick={() => action(ActionType.Redo)}
       >
-        <img className="icon" src={iconForward} alt={t("action.redo")} />
-        <span className="text">{t("action.redo")}</span>
+        <img className="icon" src={iconForward} alt={t('action.redo')} />
+        <span className="text">{t('action.redo')}</span>
       </button>
       <button
         className="action-button"
@@ -44,8 +44,8 @@ const ActionGroup: FC<{
         data-umami-event="Flip Button"
         onClick={() => action(ActionType.Flip)}
       >
-        <img className="icon" src={iconFlip} alt={t("action.flip")} />
-        <span className="text">{t("action.flip")}</span>
+        <img className="icon" src={iconFlip} alt={t('action.flip')} />
+        <span className="text">{t('action.flip')}</span>
       </button>
       <button
         className="action-button"
@@ -55,10 +55,8 @@ const ActionGroup: FC<{
         disabled={downloading}
         onClick={() => action(ActionType.Download)}
       >
-        <img className="icon" src={iconDownload} alt={t("action.download")} />
-        <span className="text">
-          {downloading ? t("text.waiting") : t("action.download")}
-        </span>
+        <img className="icon" src={iconDownload} alt={t('action.download')} />
+        <span className="text">{downloading ? t('text.waiting') : t('action.download')}</span>
       </button>
     </div>
   );

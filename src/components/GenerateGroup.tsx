@@ -1,9 +1,9 @@
-import type { FC } from "react";
-import { useTranslation } from "react-i18next";
+import type { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import "./GenerateGroup.scss";
-import iconRandom from "../assets/icons/random.svg";
-import iconMagic from "../assets/icons/magic.svg";
+import './GenerateGroup.scss';
+import iconRandom from '../assets/icons/random.svg';
+import iconMagic from '../assets/icons/magic.svg';
 
 const GenerateGroup: FC<{
   clickRandom: () => void;
@@ -19,8 +19,8 @@ const GenerateGroup: FC<{
         data-umami-event="Generate Randomly Button"
         onClick={clickRandom}
       >
-        <img className="icon" src={iconRandom} alt={t("generate.random")} />
-        <span className="text">{t("generate.random")}</span>
+        <img className="icon" src={iconRandom} alt={t('generate.random')} />
+        <span className="text">{t('generate.random')}</span>
       </button>
       <button
         className="generate-button generate-multiple"
@@ -28,8 +28,8 @@ const GenerateGroup: FC<{
         data-umami-event="Generate Multiple Button"
         onClick={clickMultiple}
       >
-        <img className="icon" src={iconMagic} alt={t("generate.multiple")} />
-        <span className="text">{t("generate.multiple")}</span>
+        <img className="icon" src={iconMagic} alt={t('generate.multiple')} />
+        <span className="text">{t('generate.multiple')}</span>
       </button>
     </div>
   );

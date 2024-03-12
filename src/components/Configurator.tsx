@@ -1,15 +1,15 @@
-import type { FC } from "react";
-import { useEffect, useState } from "react";
-import cn from "classnames";
-import type { Updater } from "use-immer";
-import { useTranslation } from "react-i18next";
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import cn from 'classnames';
+import type { Updater } from 'use-immer';
+import { useTranslation } from 'react-i18next';
 
-import "./Configurator.scss";
-import ColorSelector from "./ColorSelector";
-import SvgPreviewButton from "./SvgPreviewButton";
-import { widgetData } from "../utils/dynamic-data";
-import { WidgetType, TabName } from "../utils/enums";
-import type { History, HumanOption } from "../types";
+import './Configurator.scss';
+import ColorSelector from './ColorSelector';
+import SvgPreviewButton from './SvgPreviewButton';
+import { widgetData } from '../utils/dynamic-data';
+import { WidgetType, TabName } from '../utils/enums';
+import type { History, HumanOption } from '../types';
 
 async function getWidgets(widgetType: WidgetType) {
   const promises = widgetData[widgetType].map((data) => data());
@@ -26,32 +26,30 @@ const Configurator: FC<{
   humanOption: HumanOption;
   onChange: Updater<History>;
 }> = ({ humanOption, onChange }) => {
-  const [currentTab, setCurrentTab] = useState<WidgetType | TabName>(
-    WidgetType.Head
-  );
+  const [currentTab, setCurrentTab] = useState<WidgetType | TabName>(WidgetType.Head);
   const { t } = useTranslation();
   const [widgetList, setWidgetList] = useState<string[]>([]);
 
   const sections: Section[] = [
     {
       tabName: WidgetType.Head,
-      tabLabel: t("tabLabel.head"),
+      tabLabel: t('tabLabel.head'),
     },
     {
       tabName: WidgetType.Body,
-      tabLabel: t("tabLabel.body"),
+      tabLabel: t('tabLabel.body'),
     },
     {
       tabName: WidgetType.Bottom,
-      tabLabel: t("tabLabel.bottom"),
+      tabLabel: t('tabLabel.bottom'),
     },
     {
       tabName: WidgetType.Item,
-      tabLabel: t("tabLabel.item"),
+      tabLabel: t('tabLabel.item'),
     },
     {
       tabName: TabName.Other,
-      tabLabel: t("tabLabel.other"),
+      tabLabel: t('tabLabel.other'),
     },
   ];
 
@@ -61,16 +59,12 @@ const Configurator: FC<{
   }, [currentTab]);
 
   function switchWidget(newShapeIndex: number) {
-    if (
-      newShapeIndex === humanOption.widgets[currentTab as WidgetType].shapeIndex
-    )
-      return;
+    if (newShapeIndex === humanOption.widgets[currentTab as WidgetType].shapeIndex) return;
 
     onChange((draft) => {
       draft.past.push(humanOption);
       draft.future = [];
-      draft.present.widgets[currentTab as WidgetType].shapeIndex =
-        newShapeIndex;
+      draft.present.widgets[currentTab as WidgetType].shapeIndex = newShapeIndex;
     });
   }
 
@@ -95,8 +89,7 @@ const Configurator: FC<{
   }
 
   function handleWidgetColorChange(newColor: string) {
-    if (newColor === humanOption.widgets[currentTab as WidgetType].color)
-      return;
+    if (newColor === humanOption.widgets[currentTab as WidgetType].color) return;
 
     onChange((draft) => {
       draft.past.push(humanOption);
@@ -112,18 +105,12 @@ const Configurator: FC<{
       return (
         <div className="input-group">
           <div className="input-item">
-            <div className="input-item-label">{t("text.stroke")}</div>
-            <ColorSelector
-              color={humanOption.strokeColor}
-              onChange={handleStrokeColorChange}
-            />
+            <div className="input-item-label">{t('text.stroke')}</div>
+            <ColorSelector color={humanOption.strokeColor} onChange={handleStrokeColorChange} />
           </div>
           <div className="input-item">
-            <div className="input-item-label">{t("text.skin")}</div>
-            <ColorSelector
-              color={humanOption.skinColor}
-              onChange={handleSkinColorChange}
-            />
+            <div className="input-item-label">{t('text.skin')}</div>
+            <ColorSelector color={humanOption.skinColor} onChange={handleSkinColorChange} />
           </div>
         </div>
       );
@@ -131,7 +118,7 @@ const Configurator: FC<{
 
     return (
       <div className="input-item">
-        <div className="input-item-label">{t("text.color")}</div>
+        <div className="input-item-label">{t('text.color')}</div>
         <ColorSelector
           color={humanOption.widgets[currentTab].color!}
           onChange={handleWidgetColorChange}
@@ -169,10 +156,7 @@ const Configurator: FC<{
           return (
             <div
               key={section.tabName}
-              className={cn([
-                "label",
-                { checked: section.tabName === currentTab },
-              ])}
+              className={cn(['label', { checked: section.tabName === currentTab }])}
               onClick={() => setCurrentTab(section.tabName)}
             >
               {section.tabLabel}

@@ -1,22 +1,22 @@
 export const enum WidgetType {
-  Head = "head",
-  Body = "body",
-  Bottom = "bottom",
-  Item = "item",
+  Head = 'head',
+  Body = 'body',
+  Bottom = 'bottom',
+  Item = 'item',
 }
 
 export const enum TabName {
-  Other = "other",
+  Other = 'other',
 }
 
 export const enum Locale {
-  ZH = "zh",
-  EN = "en",
+  ZH = 'zh',
+  EN = 'en',
 }
 
 export const enum ActionType {
-  Undo = "undo",
-  Redo = "redo",
-  Flip = "flip",
-  Download = "download",
+  Undo = 'undo',
+  Redo = 'redo',
+  Flip = 'flip',
+  Download = 'download',
 }

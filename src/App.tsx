@@ -1,26 +1,22 @@
-import { useRef, useState } from "react";
-import { useImmer } from "use-immer";
+import { useRef, useState } from 'react';
+import { useImmer } from 'use-immer';
 
-import type { LittleHumanRef, History, HumanOption } from "./types";
-import { ActionType, WidgetType } from "./utils/enums";
-import {
-  DOWNLOAD_DELAY,
-  SETTINGS,
-  TRIGGER_PROBABILITY,
-} from "./utils/constant";
-import { name as appName } from "../package.json";
-import { getRandomHumanOption, showConfetti } from "./utils";
+import type { LittleHumanRef, History, HumanOption } from './types';
+import { ActionType, WidgetType } from './utils/enums';
+import { DOWNLOAD_DELAY, SETTINGS, TRIGGER_PROBABILITY } from './utils/constant';
+import { name as appName } from '../package.json';
+import { getRandomHumanOption, showConfetti } from './utils';
 
-import "./App.scss";
+import './App.scss';
 
-import LittleHuman from "./components/LittleHuman";
-import Container from "./components/Container";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import ActionGroup from "./components/ActionGroup";
-import GenerateGroup from "./components/GenerateGroup";
-import Configurator from "./components/Configurator";
-import BatchDownloadModal from "./components/modal/BatchDownloadModal";
+import LittleHuman from './components/LittleHuman';
+import Container from './components/Container';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import ActionGroup from './components/ActionGroup';
+import GenerateGroup from './components/GenerateGroup';
+import Configurator from './components/Configurator';
+import BatchDownloadModal from './components/modal/BatchDownloadModal';
 
 function App() {
   const [flipped, setFlipped] = useState(false);
@@ -68,7 +64,7 @@ function App() {
 
     const dataURL = await littleHumanRef.current!.getDataURL();
 
-    const trigger = document.createElement("a");
+    const trigger = document.createElement('a');
     trigger.href = dataURL;
     trigger.download = `${appName}.png`;
     trigger.click();
@@ -84,8 +80,7 @@ function App() {
     if (Math.random() <= TRIGGER_PROBABILITY) {
       randomOption.widgets[WidgetType.Body].color = SETTINGS.specialColor;
       randomOption.widgets[WidgetType.Bottom].color = SETTINGS.specialColor;
-      randomOption.widgets[WidgetType.Item].shapeIndex =
-        SETTINGS.specialItemShapeIndex;
+      randomOption.widgets[WidgetType.Item].shapeIndex = SETTINGS.specialItemShapeIndex;
       showConfetti();
     }
 
@@ -97,7 +92,7 @@ function App() {
   }
 
   async function generateMultipleHumans() {
-    const { default: hash } = await import("object-hash");
+    const { default: hash } = await import('object-hash');
 
     const humanMap = [...Array(30)].reduce<Map<string, HumanOption>>((res) => {
       let randomHumanOption: HumanOption;
@@ -125,11 +120,7 @@ function App() {
           <Header />
 
           <div className="playground">
-            <LittleHuman
-              humanOption={history.present}
-              flipped={flipped}
-              ref={littleHumanRef}
-            />
+            <LittleHuman humanOption={history.present} flipped={flipped} ref={littleHumanRef} />
             <ActionGroup
               action={handleAction}
               downloading={downloading}
@@ -140,10 +131,7 @@ function App() {
               clickRandom={generateRandomHuman}
               clickMultiple={generateMultipleHumans}
             />
-            <Configurator
-              humanOption={history.present}
-              onChange={updateHistory}
-            />
+            <Configurator humanOption={history.present} onChange={updateHistory} />
           </div>
 
           <Footer />
@@ -152,11 +140,11 @@ function App() {
         <canvas
           id="confetti"
           style={{
-            position: "absolute",
+            position: 'absolute',
             left: 0,
             top: 0,
-            width: "100%",
-            height: "100%",
+            width: '100%',
+            height: '100%',
           }}
         ></canvas>
       </Container>

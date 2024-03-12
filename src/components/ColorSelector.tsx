@@ -1,7 +1,7 @@
-import type { FC } from "react";
-import { useEffect, useState } from "react";
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
-import "./ColorSelector.scss";
+import './ColorSelector.scss';
 
 interface ColorSelectorProps {
   color: string;
@@ -9,7 +9,7 @@ interface ColorSelectorProps {
 }
 
 const ColorSelector: FC<ColorSelectorProps> = (props) => {
-  const [hexText, setHexText] = useState("");
+  const [hexText, setHexText] = useState('');
 
   function handleInputChange(value: string) {
     if (/^[0-9a-f]{0,6}$/i.test(value)) {
@@ -21,16 +21,16 @@ const ColorSelector: FC<ColorSelectorProps> = (props) => {
     if (hexText.length === 6) {
       props.onChange(`#${hexText}`);
     } else {
-      setHexText(props.color.replace("#", ""));
+      setHexText(props.color.replace('#', ''));
     }
   }
 
   function handlePickerChange(value: string) {
-    setHexText(value.replace("#", ""));
+    setHexText(value.replace('#', ''));
   }
 
   useEffect(() => {
-    setHexText(props.color.replace("#", ""));
+    setHexText(props.color.replace('#', ''));
   }, [props.color]);
 
   return (
@@ -56,7 +56,7 @@ const ColorSelector: FC<ColorSelectorProps> = (props) => {
           handleInputChange(e.target.value);
         }}
         onKeyDown={(e) => {
-          if (e.key === "Enter") handleInputConfrim();
+          if (e.key === 'Enter') handleInputConfrim();
         }}
         onBlur={() => {
           handleInputConfrim();

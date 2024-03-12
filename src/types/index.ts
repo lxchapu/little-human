@@ -1,4 +1,4 @@
-import { WidgetType } from "../utils/enums";
+import { WidgetType } from '../utils/enums';
 
 interface Widget {
   shapeIndex: number;

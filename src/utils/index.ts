@@ -1,16 +1,16 @@
-import type { HumanOption } from "../types";
-import { SETTINGS } from "./constant";
-import { widgetData } from "./dynamic-data";
-import { WidgetType } from "./enums";
+import type { HumanOption } from '../types';
+import { SETTINGS } from './constant';
+import { widgetData } from './dynamic-data';
+import { WidgetType } from './enums';
 
 export function updateSvgFillColor(
   container: HTMLElement,
-  colorList: { selector: string; color: string }[]
+  colorList: { selector: string; color: string }[],
 ) {
   colorList.forEach((item) => {
     const elements = container.querySelectorAll(item.selector);
     elements.forEach((element) => {
-      element.setAttribute("fill", item.color);
+      element.setAttribute('fill', item.color);
     });
   });
 }
@@ -43,14 +43,13 @@ export function getRandomHumanOption(): HumanOption {
       },
     },
     skinColor: getRandomValue(SETTINGS.skinColors),
-    strokeColor: "#000000",
+    strokeColor: '#000000',
   };
 }
 
 export async function showConfetti() {
-  import("canvas-confetti").then((confetti) => {
-    const canvasEle: HTMLCanvasElement | null =
-      document.querySelector("#confetti");
+  import('canvas-confetti').then((confetti) => {
+    const canvasEle: HTMLCanvasElement | null = document.querySelector('#confetti');
 
     if (!canvasEle) {
       return;
@@ -64,7 +63,7 @@ export async function showConfetti() {
 
     const duration = performance.now() + 1 * 1000;
 
-    const confettiColors = ["#6967fe", "#85e9f4", "#e16984"];
+    const confettiColors = ['#6967fe', '#85e9f4', '#e16984'];
 
     void (function frame() {
       myConfetti({

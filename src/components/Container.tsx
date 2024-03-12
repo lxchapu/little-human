@@ -1,6 +1,6 @@
-import type { FC, ReactNode } from "react";
+import type { FC, ReactNode } from 'react';
 
-import "./Container.scss";
+import './Container.scss';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
   return <section className="container">{children}</section>;

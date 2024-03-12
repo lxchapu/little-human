@@ -1,11 +1,11 @@
-import type { FC } from "react";
-import { useEffect, useRef } from "react";
-import cn from "classnames";
+import type { FC } from 'react';
+import { useEffect, useRef } from 'react';
+import cn from 'classnames';
 
-import "./SvgPreviewButton.scss";
-import { updateSvgFillColor } from "../utils";
-import { WidgetType } from "../utils/enums";
-import { WIDGET_SIZE } from "../utils/constant";
+import './SvgPreviewButton.scss';
+import { updateSvgFillColor } from '../utils';
+import { WidgetType } from '../utils/enums';
+import { WIDGET_SIZE } from '../utils/constant';
 
 interface SvgPreviewButtonProps {
   svgRaw: string;
@@ -25,33 +25,27 @@ const SvgPreviewButton: FC<SvgPreviewButtonProps> = (props) => {
 
     const colorList = [
       {
-        selector: ".skin",
+        selector: '.skin',
         color: props.skinColor,
       },
       {
-        selector: ".stroke",
+        selector: '.stroke',
         color: props.strokeColor,
       },
     ];
     if (props.color) {
       colorList.push({
-        selector: "." + props.type,
+        selector: '.' + props.type,
         color: props.color,
       });
     }
 
     updateSvgFillColor(myRef.current!, colorList);
-  }, [
-    props.svgRaw,
-    props.skinColor,
-    props.strokeColor,
-    props.type,
-    props.color,
-  ]);
+  }, [props.svgRaw, props.skinColor, props.strokeColor, props.type, props.color]);
 
   return (
     <div
-      className={cn(["svg-preview-button", { selected: props.isSelected }])}
+      className={cn(['svg-preview-button', { selected: props.isSelected }])}
       onClick={props.onClick}
     >
       <div
