@@ -27,15 +27,15 @@
     <meta property="twitter:image" content="https://s2.loli.net/2024/03/02/hba5MAilRXguZtr.webp" />
 
     <title>Little Human</title>
-
+    <% if (PROD) { %>
     <script
       defer
       src="https://umami.lxchapu.com/script.js"
       data-website-id="b30c704d-e87a-483a-93ab-7c53e1fca21e"
     ></script>
+    <% } %>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
